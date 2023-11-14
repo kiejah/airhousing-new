@@ -20,6 +20,7 @@ module.exports = {
                 featured_card_bg:"#f1f1f1",
                 yellow_bg:"#FFF200",
                 tt_black:"#000000",
+                tt_white:"#ffffff",
             },
         },
     },

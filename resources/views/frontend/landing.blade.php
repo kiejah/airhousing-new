@@ -15,14 +15,11 @@
             </li>
         </ul>
     </div>
-    <div class="imageStyle">
-        <div class='flex content-center text-white sliderStyle'>
+    <div class="background-container">
+        <div class="content">
             @include('frontend.slider')
-        </div>
-        <div class='flex content-center text-white searchStyle'>
             @include('frontend.search')
         </div>
-
     </div>
 
 </section>
