@@ -28,7 +28,6 @@
                             </option>
                             <option>Data Structures</option>
                             <option>Algorithms</option>
-                            <option>DBMS</option>
                         </select>
                     </div>
                     <div class="icon is-left">
