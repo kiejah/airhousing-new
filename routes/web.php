@@ -41,7 +41,19 @@ Route::get('/', [FrontEndController::class,'index'])->middleware(
 
         'XSS',
     ]
-);
+)->name('frontend.home');
+Route::get('/properties', [FrontEndController::class,'properties'])->middleware(
+    [
+
+        'XSS',
+    ]
+)->name('frontend.properties');
+Route::get('/about_us', [FrontEndController::class,'about_us'])->middleware(
+    [
+
+        'XSS',
+    ]
+)->name('frontend.about_us');
 Route::get('home', [HomeController::class,'index'])->name('home')->middleware(
     [
 
