@@ -18,6 +18,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/unit_slider.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -34,6 +36,8 @@
     </div>
 
 </footer>
+<script src="{{ asset('assets/js/jquery.js') }}"></script>
+
 @stack('js')
 
 </html>

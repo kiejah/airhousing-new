@@ -48,19 +48,24 @@ Route::get('/properties', [FrontEndController::class,'properties'])->middleware(
         'XSS',
     ]
 )->name('frontend.properties');
+Route::get('/properties/{id}', [FrontEndController::class,'showProperty'])->middleware(
+    [
+     'XSS',
+    ]
+)->name('frontend.properties.show');
 Route::get('/about_us', [FrontEndController::class,'about_us'])->middleware(
     [
 
         'XSS',
     ]
 )->name('frontend.about_us');
-Route::get('home', [HomeController::class,'index'])->name('home')->middleware(
+Route::get('/home', [HomeController::class,'index'])->name('home')->middleware(
     [
 
         'XSS',
     ]
 );
-Route::get('dashboard', [HomeController::class,'index'])->name('dashboard')->middleware(
+Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard')->middleware(
     [
 
         'XSS',

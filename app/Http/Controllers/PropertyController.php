@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\Location;
 use App\Models\PropertyImage;
+use App\Models\PropertyUnitImage;
 use App\Models\PropertyUnit;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,8 @@ class PropertyController extends Controller
     {
         if (\Auth::user()->can('create property')) {
             $types = Property::$Type;
-            return view('property.create', compact('types'));
+            $locations = Location::all()->sortBy("name");
+            return view('property.create', compact(['types','locations']));
         } else {
             return redirect()->back()->with('error', __('Permission Denied!'));
         }
@@ -34,6 +37,7 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
+
         if (\Auth::user()->can('create property')) {
             $validator = \Validator::make(
                 $request->all(), [
@@ -42,10 +46,11 @@ class PropertyController extends Controller
                 'type' => 'required',
                 'country' => 'required',
                 'state' => 'required',
-                'city' => 'required',
                 'zip_code' => 'required',
                 'address' => 'required',
                 'thumbnail' => 'required',
+                'location' => 'required',
+
             ], [
                     'regex' => __('The Name format is invalid, Contains letter, number and only alphanum'),
                 ]
@@ -67,10 +72,13 @@ class PropertyController extends Controller
             $property->type = $request->type;
             $property->country = $request->country;
             $property->state = $request->state;
-            $property->city = $request->city;
+            $property->location_id = $request->location;
             $property->zip_code = $request->zip_code;
             $property->address = $request->address;
+            $property->featured_id = $request->featured_id;
             $property->parent_id = \Auth::user()->parentId();
+            $property->created_by = \Auth::id();
+
             $property->save();
 
             if (!empty($request->thumbnail)) {
@@ -87,6 +95,21 @@ class PropertyController extends Controller
                    }
                 
             }
+            if (!empty($request->onebed_images)) {
+                //dd($request->onebed_images);
+                foreach ($request->onebed_images as $file) {
+                    $onebedFilenameWithExt = $file->getClientOriginalName();
+                    $onebedFilename = pathinfo($onebedFilenameWithExt, PATHINFO_FILENAME);
+                    $onebedExtension = $file->getClientOriginalExtension();
+                    $onebedFileName = $onebedFilename . '_' . time() . '.' . $onebedExtension;
+                   
+                    $onebedImage = new PropertyUnitImage();
+                    $onebedImage->property_id = $property->id;
+                    $onebedImage->unit_type = '1';
+                    $onebedImage->image_name = $file->store('propertyUnitImages','public');
+                    $onebedImage->save();
+                }
+            }
 
             if (!empty($request->property_images)) {
                 foreach ($request->property_images as $file) {
@@ -102,6 +125,8 @@ class PropertyController extends Controller
                     $propertyImage->save();
                 }
             }
+
+
 
             return response()->json([
                 'status' => 'success',
@@ -130,7 +155,8 @@ class PropertyController extends Controller
     {
         if (\Auth::user()->can('edit property')) {
             $types = Property::$Type;
-            return view('property.edit', compact('types', 'property'));
+            $locations = Location::all()->sortBy("name");
+            return view('property.edit', compact('types', 'property','locations'));
         } else {
             return redirect()->back()->with('error', __('Permission Denied!'));
         }
@@ -147,7 +173,6 @@ class PropertyController extends Controller
                     'type' => 'required',
                     'country' => 'required',
                     'state' => 'required',
-                    'city' => 'required',
                     'zip_code' => 'required',
                     'address' => 'required',
 
@@ -172,9 +197,10 @@ class PropertyController extends Controller
             $property->type = $request->type;
             $property->country = $request->country;
             $property->state = $request->state;
-            $property->city = $request->city;
+            $property->location_id = $request->location;
             $property->zip_code = $request->zip_code;
             $property->address = $request->address;
+            $property->featured_id = $request->featured_id; 
             $property->update();
 
             if (!empty($request->thumbnail)) {

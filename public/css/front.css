@@ -3,6 +3,12 @@
   width: 100%;
   position: absolute;
 }
+.top-nav-inner {
+  width: 100%;
+}
+.inner-container{
+  padding: 0% 5%;
+}
 
 
  .landing-select{
@@ -74,7 +80,7 @@ footer{
 .background-container {
   width: 100vw;
   height: 70vh;
-  background: url('http://127.0.0.1:5500/herobanner.jpg') center/cover no-repeat; /* Set your image URL here */
+  background: url('http://127.0.0.1:8000/assets/images/landing/herobanner.jpg') center/cover no-repeat; /* Set your image URL here */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,6 +94,14 @@ footer{
   justify-content: center;
   text-align: center;
 }
+.background-container-property {
+  width: 100vw;
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .background-container-about {
   width: 100vw;
   height: 40vh;
@@ -95,7 +109,8 @@ footer{
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('http://127.0.0.1:5500/herobanner.jpg') center/cover no-repeat;
+  background: url('http://127.0.0.1:8000/assets/images/landing/about_us_banner.png') center/cover no-repeat;
+  box-shadow: inset 0 0 0 2000px rgba(255, 255, 255, 0.4);
 }
 
 .content {
@@ -206,15 +221,45 @@ text-align: left;
 
 .about_brief {
   width: 50vw;
-  background-color: rgba(255, 255, 255, 0.2);
   padding: 10px;
+  margin-top: 10px;
 
 }
 .about_brief p.banner_text{
   color: #000000;
 }
 
+.signupdiv{
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 1px 2px 3px #ccc;
+  padding: 10px;
+  margin-top: 100px;
+}
+.form-group-location{
+  margin-bottom: 10px;
+}
+img.property-img{
+  min-width: 100%;
+}
+.w-96.mr-5.shadow.card-container {
+  background: #f1f1f1;
+}
+ /* Image Card Styles */
+ .card {
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
 
 
 

@@ -178,7 +178,8 @@
                 <div class="detail-group">
                     <h6>{{ __('Property Address') }}</h6>
                     <p class="mb-10">{{ $property->address }}</p>
-                    <p class="mb-10">{{ $property->city . ', ' . $property->state . ', ' . $property->country }}</p>
+                    <p class="mb-10">{{ $property->location->name . ', ' . $property->state . ', ' . $property->country }}
+                    </p>
                     <p class="mb-10">{{ $property->zip_code }}</p>
                 </div>
             </div>

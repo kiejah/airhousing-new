@@ -1,6 +1,6 @@
 @php
     $admin_logo = \App\Models\Custom::getValByName('company_logo');
-    
+
 @endphp
 <aside class="codex-sidebar sidebar-{{ $settings['sidebar_mode'] }}">
     <div class="logo-gridwrap">
@@ -8,7 +8,7 @@
 
             <img class="img-fluid"
                 src="{{ asset('storage/logo') . '/' . (isset($admin_logo) && !empty($admin_logo) ? $admin_logo : 'logo.png') }}"
-                alt="theeme-logo">
+                alt="theeme-logo" style="width:50px;border-radius:50%;">
         </a>
         <a class="codex-darklogo" href="{{ route('home') }}">
             <img class="img-fluid"

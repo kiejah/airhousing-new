@@ -2,6 +2,18 @@
 @section('page-title')
     {{ __('Property Create') }}
 @endsection
+
+@push('css-page')
+    <style>
+        #hiddenElement {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+@endpush
+
 @push('script-page')
     <script src="{{ asset('assets/js/vendors/dropzone/dropzone.js') }}"></script>
     <script>
@@ -29,6 +41,34 @@
             }
 
         });
+        var dropzone = new Dropzone('#onebed-upload', {
+            previewTemplate: document.querySelector('.onebed-dropzon').innerHTML,
+            parallelUploads: 10,
+            thumbnailHeight: 120,
+            thumbnailWidth: 120,
+            maxFilesize: 10,
+            filesizeBase: 1000,
+            autoProcessQueue: false,
+            thumbnail: function(file, dataUrl) {
+
+                if (file.previewElement) {
+                    file.previewElement.classList.remove("dz-file-preview");
+                    var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+                    for (var i = 0; i < images.length; i++) {
+                        var thumbnailElement = images[i];
+                        thumbnailElement.alt = file.name;
+                        thumbnailElement.src = dataUrl;
+                    }
+                    setTimeout(function() {
+                        file.previewElement.classList.add("dz-image-preview");
+                    }, 1);
+                }
+            }
+
+        });
+
+
+
         $('#property-submit').on('click', function() {
             "use strict";
             $('#property-submit').attr('disabled', true);
@@ -40,11 +80,26 @@
                 fd.append('property_images[' + key + ']', $('#demo-upload')[0].dropzone
                     .getAcceptedFiles()[key]); // attach dropzone image element
             });
+
+            var onebed_files = $('#onebed-upload').get(0).dropzone.getAcceptedFiles();
+            if (onebed_files.length > 0) {
+                $.each(onebed_files, function(key, file) {
+                    fd.append('onebed_images[' + key + ']', $('#onebed-upload')[0].dropzone
+                        .getAcceptedFiles()[key]); // attach dropzone image element
+                });
+            }
+
+
+
+
+
+
             fd.append('thumbnail', file);
             var other_data = $('#property_form').serializeArray();
             $.each(other_data, function(key, input) {
                 fd.append(input.name, input.value);
             });
+
             $.ajax({
                 url: "{{ route('property.store') }}",
                 headers: {
@@ -80,6 +135,15 @@
                     }
                 },
             });
+        });
+
+        const checkbox = document.getElementById('one_bed');
+        const hiddenElement = document.getElementById('hiddenElement');
+
+        // Add an event listener to the checkbox
+        checkbox.addEventListener('change', function() {
+            // If the checkbox is checked, show the element; otherwise, hide it
+            hiddenElement.style.display = this.checked ? 'block' : 'none';
         });
     </script>
 @endpush
@@ -118,7 +182,7 @@
                             {{ Form::textarea('description', null, ['class' => 'form-control', 'rows' => 8, 'placeholder' => __('Enter Property Description')]) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('thumbnail', __('Thumbnail Image'), ['class' => 'form-label']) }}
+                            {{ Form::label('thumbnail', __('Featured Image'), ['class' => 'form-label']) }}
                             {{ Form::file('thumbnail', ['class' => 'form-control']) }}
                         </div>
                     </div>
@@ -131,24 +195,145 @@
                     <div class="info-group">
                         <div class="form-group">
                             {{ Form::label('country', __('Country'), ['class' => 'form-label']) }}
-                            {{ Form::text('country', null, ['class' => 'form-control', 'placeholder' => __('Enter Property Country')]) }}
+                            {{ Form::text('country', null, ['class' => 'form-control', 'placeholder' => __('Enter property country')]) }}
+                        </div>
+
+                        <div class="form-group ">
+                            {{ Form::label('location', __('Location'), ['class' => 'form-label']) }}
+                            <select class="form-control hidesearch" name="location">
+                                @foreach ($locations as $location)
+                                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            {{ Form::label('state', __('State'), ['class' => 'form-label']) }}
-                            {{ Form::text('state', null, ['class' => 'form-control', 'placeholder' => __('Enter Property State')]) }}
+                            {{ Form::label('state', __('County'), ['class' => 'form-label']) }}
+                            {{ Form::text('state', null, ['class' => 'form-control', 'placeholder' => __('Enter property county')]) }}
                         </div>
+                        {{-- <div class="form-group">
+                            {{ Form::label('city', __('Town'), ['class' => 'form-label']) }}
+                            {{ Form::text('city', null, ['class' => 'form-control', 'placeholder' => __('Enter property\'s nearest Town')]) }}
+                        </div> --}}
                         <div class="form-group">
-                            {{ Form::label('city', __('City'), ['class' => 'form-label']) }}
-                            {{ Form::text('city', null, ['class' => 'form-control', 'placeholder' => __('Enter Property City')]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('zip_code', __('Zip Code'), ['class' => 'form-label']) }}
-                            {{ Form::text('zip_code', null, ['class' => 'form-control', 'placeholder' => __('Enter Property Zip Code')]) }}
+                            {{ Form::label('zip_code', __('P.O Box'), ['class' => 'form-label']) }}
+                            {{ Form::text('zip_code', null, ['class' => 'form-control', 'placeholder' => __('Enter property P.O Box')]) }}
                         </div>
                         <div class="form-group ">
-                            {{ Form::label('address', __('Address'), ['class' => 'form-label']) }}
-                            {{ Form::textarea('address', null, ['class' => 'form-control', 'rows' => 3, 'placeholder' => __('Enter Property Address')]) }}
+                            {{ Form::label('address', __('Physical Address'), ['class' => 'form-label']) }}
+                            {{ Form::textarea('address', null, ['class' => 'form-control', 'rows' => 3, 'placeholder' => __('Enter property physical Address')]) }}
                         </div>
+                        <div class="form-group ">
+                            {{ Form::label('type', __('Set as a Featured Property'), ['class' => 'form-label']) }}
+                            <select class="form-control hidesearch" name="featured_id">
+                                <option selected value ='0'>No</option>
+                                <option value ='1'>Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Unit types Available</h4>
+                </div>
+                <div class="card-body">
+                    <div class="info-group d-flex flex-row justify-content-between">
+                        <div class="form-group ">
+                            {{ Form::label('one_bed', __('One Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('one_bed') }}
+
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('two_bed', __('Two Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('two_bed') }}
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('three_bed', __('Three Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('three_bed') }}
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('four_bed', __('Four Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('four_bed') }}
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('five_bed', __('Five Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('five_bed') }}
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('six_plus_bed', __('Six+ Bedrooms'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('six_plus_bed') }}
+                        </div>
+
+                    </div>
+
+                    <div class="info-group d-flex flex-row justify-content-between">
+                        <div class="form-group ">
+                            <div id="hiddenElement">
+                                <div class="card-body">
+                                    <div class="dropzone needsclick" id='onebed-upload' action="#">
+                                        <div class="dz-message needsclick">
+                                            <div class="upload-icon"><i class="fa fa-cloud-upload"></i></div>
+                                            <h6>{{ __('Drop One Bedroom images here.') }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="onebed-dropzon" style="display: none;">
+                                        <div class="dz-preview dz-file-preview">
+                                            <div class="dz-image"><img data-dz-thumbnail="" src="" alt="">
+                                            </div>
+                                            <div class="dz-details">
+                                                <div class="dz-size"><span data-dz-size=""></span></div>
+                                                <div class="dz-filename"><span data-dz-name=""></span></div>
+                                            </div>
+                                            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress="">
+                                                </span></div>
+                                            <div class="dz-success-mark"><i class="fa fa-check" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div id="hiddenElement">
+                                <div class="card-body">
+                                    <div class="dropzone needsclick" id='onebed-upload' action="#">
+                                        <div class="dz-message needsclick">
+                                            <div class="upload-icon"><i class="fa fa-cloud-upload"></i></div>
+                                            <h6>{{ __('Drop One Bedroom images here.') }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="onebed-dropzon" style="display: none;">
+                                        <div class="dz-preview dz-file-preview">
+                                            <div class="dz-image"><img data-dz-thumbnail="" src="" alt="">
+                                            </div>
+                                            <div class="dz-details">
+                                                <div class="dz-size"><span data-dz-size=""></span></div>
+                                                <div class="dz-filename"><span data-dz-name=""></span></div>
+                                            </div>
+                                            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress="">
+                                                </span></div>
+                                            <div class="dz-success-mark"><i class="fa fa-check" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('four_bed', __('Four Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('four_bed') }}
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('five_bed', __('Five Bedroom'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('five_bed') }}
+                        </div>
+                        <div class="form-group ">
+                            {{ Form::label('six_plus_bed', __('Six+ Bedrooms'), ['class' => 'form-label']) }}
+                            {{ Form::checkbox('six_plus_bed') }}
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -159,7 +344,7 @@
                     {{ Form::label('demo-upload', __('Property Images'), ['class' => 'form-label']) }}
                 </div>
                 <div class="card-body">
-                    <div class="dropzone needsclick" id='demo-upload' action="#">
+                    <div class="dropzone needsclick demo-upload" id='demo-upload' action="#">
                         <div class="dz-message needsclick">
                             <div class="upload-icon"><i class="fa fa-cloud-upload"></i></div>
                             <h3>{{ __('Drop files here or click to upload.') }}</h3>

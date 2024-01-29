@@ -1,5 +1,4 @@
 @extends('layouts.frontend.app')
-{{-- @include('frontend.search') --}}
 <section>
 
     @include('frontend.frontnav')

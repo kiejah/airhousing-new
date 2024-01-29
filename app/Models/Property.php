@@ -19,11 +19,14 @@ class Property extends Model
         'address',
         'parent_id',
         'is_active',
+        'location_id',
+        'featured_id',
     ];
 
     public static $Type=[
         'own_property'=> 'Own Property',
         'lease_property'=>'Lease Property',
+        'rent_property_unit'=>'Property with Rental Units',
     ];
 
     public function thumbnail(){
@@ -50,4 +53,31 @@ class Property extends Model
         }
         return $totalUnit;
     }
+    public function location(){
+        return $this->belongsTo('App\Models\Location','location_id','id');
+    }
+    public function manager(){
+        return $this->belongsTo('App\Models\User','parent_id');
+    }
+    public function units()
+    {
+        return $this->hasMany('App\Models\PropertyUnit','property_id','id');
+    }
+    public function scopeFilter($query, array $filters){
+        if ($filters['location'] ?? false){
+            $query->where('location_id','like','%'.request('location').'%');
+        }
+        if ($filters['unit_type'] ?? false){
+            $query->whereHas('units', function ($unitQuery) use ($filters) {
+                // Apply your condition on the units relationship
+                $unitQuery->where('bedroom', '=', $filters['unit_type']);
+            });
+        }
+
+    }
+    
+   
+
+
+
 }

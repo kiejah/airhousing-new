@@ -39,9 +39,15 @@
                                 data-feather="link"></i></a>
                     </div>
                     <div class="detailwrapper">
-                        <a href="@can('show property') {{ route('property.show', $property->id) }} @endcan">
-                            <h4>{{ $property->name }}</h4>
-                        </a>
+                        <div class="blog-footer">
+                            <a href="@can('show property') {{ route('property.show', $property->id) }} @endcan">
+                                <h4>{{ $property->name }}</h4>
+                            </a>
+                            <span class="text-justify">
+                                <span
+                                    class="{{ $property->featured_id == 1 ? 'badge badge-success' : '' }}">{{ $property->featured_id == 1 ? 'Featured' : '' }}</span>
+                            </span>
+                        </div>
                         <ul class="blogsoc-list">
                             <li><a href="#"><i data-feather="layers"></i>{{ $property->totalUnit() }}
                                     {{ __('Unit') }}</a></li>
