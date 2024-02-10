@@ -605,6 +605,7 @@ class ComposerStaticInit8342c07d9161854d53f44a94c2ace5e8
         'App\\Models\\MaintenanceRequest' => __DIR__ . '/../..' . '/app/Models/MaintenanceRequest.php',
         'App\\Models\\NoticeBoard' => __DIR__ . '/../..' . '/app/Models/NoticeBoard.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
+        'App\\Models\\Price' => __DIR__ . '/../..' . '/app/Models/Price.php',
         'App\\Models\\Property' => __DIR__ . '/../..' . '/app/Models/Property.php',
         'App\\Models\\PropertyImage' => __DIR__ . '/../..' . '/app/Models/PropertyImage.php',
         'App\\Models\\PropertyUnit' => __DIR__ . '/../..' . '/app/Models/PropertyUnit.php',

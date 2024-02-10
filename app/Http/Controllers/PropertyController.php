@@ -110,6 +110,86 @@ class PropertyController extends Controller
                     $onebedImage->save();
                 }
             }
+            //twobed images
+            if (!empty($request->twobed_images)) {
+                //dd($request->onebed_images);
+                foreach ($request->twobed_images as $file) {
+                    $twobedFilenameWithExt = $file->getClientOriginalName();
+                    $twobedFilename = pathinfo($twobedFilenameWithExt, PATHINFO_FILENAME);
+                    $twobedExtension = $file->getClientOriginalExtension();
+                    $twobedFileName = $twobedFilename . '_' . time() . '.' . $twobedExtension;
+                   
+                    $twobedImage = new PropertyUnitImage();
+                    $twobedImage->property_id = $property->id;
+                    $twobedImage->unit_type = '2';
+                    $twobedImage->image_name = $file->store('propertyUnitImages','public');
+                    $twobedImage->save();
+                }
+            }
+            //threebed images
+            if (!empty($request->threebed_images)) {
+                //dd($request->onebed_images);
+                foreach ($request->threebed_images as $file) {
+                    $threebedFilenameWithExt = $file->getClientOriginalName();
+                    $threebedFilename = pathinfo($threebedFilenameWithExt, PATHINFO_FILENAME);
+                    $threebedExtension = $file->getClientOriginalExtension();
+                    $threebedFileName = $threebedFilename . '_' . time() . '.' . $threebedExtension;
+                   
+                    $threebedImage = new PropertyUnitImage();
+                    $threebedImage->property_id = $property->id;
+                    $threebedImage->unit_type = '3';
+                    $threebedImage->image_name = $file->store('propertyUnitImages','public');
+                    $threebedImage->save();
+                }
+            }
+            //fourbed images
+            if (!empty($request->fourbed_images)) {
+                //dd($request->onebed_images);
+                foreach ($request->fourbed_images as $file) {
+                    $fourbedFilenameWithExt = $file->getClientOriginalName();
+                    $fourbedFilename = pathinfo($fourbedFilenameWithExt, PATHINFO_FILENAME);
+                    $fourbedExtension = $file->getClientOriginalExtension();
+                    $fourbedFileName = $fourbedFilename . '_' . time() . '.' . $fourbedExtension;
+                   
+                    $fourbedImage = new PropertyUnitImage();
+                    $fourbedImage->property_id = $property->id;
+                    $fourbedImage->unit_type = '4';
+                    $fourbedImage->image_name = $file->store('propertyUnitImages','public');
+                    $fourbedImage->save();
+                }
+            }
+            //fivebed images
+            if (!empty($request->fivebed_images)) {
+                //dd($request->onebed_images);
+                foreach ($request->fivebed_images as $file) {
+                    $fivebedFilenameWithExt = $file->getClientOriginalName();
+                    $fivebedFilename = pathinfo($fivebedFilenameWithExt, PATHINFO_FILENAME);
+                    $fivebedExtension = $file->getClientOriginalExtension();
+                    $fivebedFileName = $fivebedFilename . '_' . time() . '.' . $fivebedExtension;
+                   
+                    $fivebedImage = new PropertyUnitImage();
+                    $fivebedImage->property_id = $property->id;
+                    $fivebedImage->unit_type = '5';
+                    $fivebedImage->image_name = $file->store('propertyUnitImages','public');
+                    $fivebedImage->save();
+                }
+            }
+            //sixbed images
+            if (!empty($request->sixbed_images)) {
+                //dd($request->onebed_images);
+                foreach ($request->sixbed_images as $file) {
+                    $sixbedFilenameWithExt = $file->getClientOriginalName();
+                    $sixbedFilename = pathinfo($sixbedFilenameWithExt, PATHINFO_FILENAME);
+                    $sixbedExtension = $file->getClientOriginalExtension();
+                    $sixbedFileName = $sixbedFilename . '_' . time() . '.' . $sixbedExtension;
+                   
+                    $sixbedImage = new PropertyUnitImage();
+                    $sixbedImage->property_id = $property->id;
+                    $sixbedImage->unit_type = '2';
+                    $sixbedImage->image_name = $file->store('propertyUnitImages','public');
+                    $sixbedImage->save();
+                }
+            }
 
             if (!empty($request->property_images)) {
                 foreach ($request->property_images as $file) {
@@ -142,9 +222,13 @@ class PropertyController extends Controller
 
     public function show(Property $property)
     {
+        
         if (\Auth::user()->can('show property')) {
             $units = PropertyUnit::where('property_id', $property->id)->orderBy('id', 'desc')->get();
-            return view('property.show', compact('property', 'units'));
+            $propert_unit_images = PropertyUnitImage::where('property_id', $property->id)->get();
+            $propert_unit_types = PropertyUnitImage::select('unit_type')->distinct()->where('property_id', $property->id)->get();
+
+            return view('property.show', compact('property', 'units','propert_unit_images','propert_unit_types'));
         } else {
             return redirect()->back()->with('error', __('Permission Denied!'));
         }

@@ -54,3 +54,6 @@
 .lan-footer .codex-brand{
     margin-block-end: 0px !important;
 }
+.hiddenElement{
+    display: none;
+}

@@ -42,12 +42,15 @@ Route::get('/', [FrontEndController::class,'index'])->middleware(
         'XSS',
     ]
 )->name('frontend.home');
+Route::post('/unit_inquries', [FrontEndController::class,'unitInquries'])->name('frontend.unit_inquries');
+
 Route::get('/properties', [FrontEndController::class,'properties'])->middleware(
     [
 
         'XSS',
     ]
 )->name('frontend.properties');
+
 Route::get('/properties/{id}', [FrontEndController::class,'showProperty'])->middleware(
     [
      'XSS',

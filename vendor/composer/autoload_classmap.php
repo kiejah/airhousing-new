@@ -59,6 +59,7 @@ return array(
     'App\\Models\\MaintenanceRequest' => $baseDir . '/app/Models/MaintenanceRequest.php',
     'App\\Models\\NoticeBoard' => $baseDir . '/app/Models/NoticeBoard.php',
     'App\\Models\\Order' => $baseDir . '/app/Models/Order.php',
+    'App\\Models\\Price' => $baseDir . '/app/Models/Price.php',
     'App\\Models\\Property' => $baseDir . '/app/Models/Property.php',
     'App\\Models\\PropertyImage' => $baseDir . '/app/Models/PropertyImage.php',
     'App\\Models\\PropertyUnit' => $baseDir . '/app/Models/PropertyUnit.php',

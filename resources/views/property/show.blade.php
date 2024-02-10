@@ -182,6 +182,21 @@
                     </p>
                     <p class="mb-10">{{ $property->zip_code }}</p>
                 </div>
+                <div class="detail-group">
+                    <h6>{{ __('Property Types') }}</h6>
+                    @foreach ($propert_unit_types as $propert_unit_type)
+                        <p class="mb-10">{{ $propert_unit_type->unit_type }} Bedrooms</p>
+                        <div class="flex">
+                            @foreach ($propert_unit_images as $propert_unit_image)
+                                @if ($propert_unit_image->unit_type == $propert_unit_type->unit_type)
+                                    <img class="img-fluid mb-10"
+                                        src="{{ asset('storage/' . $propert_unit_image->image_name) }}" alt="">
+                                @endif
+                            @endforeach
+                        </div>
+                    @endforeach
+                    {{--  --}}
+                </div>
             </div>
         </div>
     </div>

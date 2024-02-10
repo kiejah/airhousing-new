@@ -7,6 +7,7 @@ use App\Models\Property;
 
 use App\Models\PropertyUnit;
 use Illuminate\Http\Request;
+use App\Models\PropertyUnitImage;
 
 class FrontEndController extends Controller
 {
@@ -32,7 +33,12 @@ class FrontEndController extends Controller
        
         $property = Property::find($id);
         $units = PropertyUnit::where('property_id', $id)->orderBy('id', 'desc')->get();
-        return view('frontend.property.show', compact('property', 'units'));   
+        $propert_unit_images = PropertyUnitImage::where('property_id', $id)->get();
+        $propert_unit_types = PropertyUnitImage::select('unit_type')->distinct()->where('property_id', $id)->get();
+        return view('frontend.property.show', compact('property', 'units','propert_unit_images','propert_unit_types'));   
+    }
+    public function unitInquries(Request $request){
+        dd($request);
     }
     
 }
