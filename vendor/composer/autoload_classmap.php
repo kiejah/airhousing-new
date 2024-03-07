@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Helpers\\InquiriesHelper' => $baseDir . '/app/Helpers/InquiriesHelper.php',
     'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => $baseDir . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
     'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => $baseDir . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
@@ -48,6 +49,7 @@ return array(
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\StoreLocationRequest' => $baseDir . '/app/Http/Requests/StoreLocationRequest.php',
     'App\\Http\\Requests\\UpdateLocationRequest' => $baseDir . '/app/Http/Requests/UpdateLocationRequest.php',
+    'App\\Models\\Booking' => $baseDir . '/app/Models/Booking.php',
     'App\\Models\\Contact' => $baseDir . '/app/Models/Contact.php',
     'App\\Models\\Custom' => $baseDir . '/app/Models/Custom.php',
     'App\\Models\\Expense' => $baseDir . '/app/Models/Expense.php',

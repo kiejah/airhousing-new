@@ -38,4 +38,8 @@ class PropertyUnit extends Model
         'yearly'=>'Yearly',
         'custom'=>'Custom',
     ];
+    public function inquiries()
+    {
+        return $this->hasMany('App\Models\Booking','unit_id');
+    }
 }

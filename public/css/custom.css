@@ -57,3 +57,20 @@
 .hiddenElement{
     display: none;
 }
+.info-list.inq-titles {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .info-list.inq-name-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .prop-heading {
+    text-align: center;
+    margin: 0px 0px 15px 10px;
+    font-size: 1.5rem;
+    background: white;
+    padding: 10px;
+  } 

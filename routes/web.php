@@ -206,6 +206,7 @@ Route::group(
     ], function (){
     Route::resource('property', PropertyController::class);
     Route::get('property/{pid}/unit/create', [PropertyController::class,'unitCreate'])->name('unit.create');
+    Route::get('property/{pid}/prop_enquiries', [PropertyController::class,'propEnquiries'])->name('property.prop_enquiries');
     Route::post('property/{pid}/unit/store', [PropertyController::class,'unitStore'])->name('unit.store');
     Route::get('property/{pid}/unit/{id}/edit', [PropertyController::class,'unitEdit'])->name('unit.edit');
     Route::put('property/{pid}/unit/{id}/update', [PropertyController::class,'unitUpdate'])->name('unit.update');

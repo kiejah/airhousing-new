@@ -8803,6 +8803,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 .m-2{
   margin: 0.5rem;
 }
+.mx-2{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
 .mx-3{
   margin-left: 0.75rem;
   margin-right: 0.75rem;

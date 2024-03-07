@@ -157,7 +157,7 @@
                     </li>
                     @if (Gate::check('manage property'))
                         <li
-                            class="menu-item {{ Request::route()->getName() == 'property.index' || Request::route()->getName() == 'property.create' || Request::route()->getName() == 'property.edit' || Request::route()->getName() == 'property.show' ? 'active' : '' }}">
+                            class="menu-item {{ Request::route()->getName() == 'property.index' || Request::route()->getName() == 'property.create' || Request::route()->getName() == 'property.edit' || Request::route()->getName() == 'property.prop_enquiries' || Request::route()->getName() == 'property.show' ? 'active' : '' }}">
                             <a href="{{ route('property.index') }}">
                                 <div class="icon-item"><i data-feather="home"></i></div>
                                 <span>{{ __('Property') }}</span>

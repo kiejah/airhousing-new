@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
+use App\Models\Booking;
 use App\Models\Location;
-use App\Models\PropertyImage;
-use App\Models\PropertyUnitImage;
+use App\Models\Property;
 use App\Models\PropertyUnit;
 use Illuminate\Http\Request;
+use App\Models\PropertyImage;
+use App\Models\PropertyUnitImage;
 
 class PropertyController extends Controller
 {
@@ -362,6 +363,12 @@ class PropertyController extends Controller
         $types = PropertyUnit::$Types;
         $rentTypes = PropertyUnit::$rentTypes;
         return view('unit.create', compact('types', 'property_id', 'rentTypes'));
+    }
+    public function propEnquiries($property_id)
+    {   
+        $property= Property::find($property_id);
+        $units = PropertyUnit::where('property_id', $property_id)->orderBy('id', 'desc')->get();
+        return view('property.inquiries', compact('units','property'));
     }
 
     public function unitStore(Request $request, $property_id)

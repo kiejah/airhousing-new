@@ -8,6 +8,11 @@
 
 </section>
 <section>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="mx-auto inner-container mt-5">
         <div class="grid sm:grid-cols-1 md:grid-cols-3">
             <div class="bg-gray-200 p-5">
@@ -75,9 +80,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="flex justify-center m-2">
+                <div class="flex m-2">
                     @foreach ($units as $unit)
-                        <div class="col-xl-3 col-md-6 cdx-xxl-50 cdx-xl-50">
+                        <div class="col-xl-3 col-md-6 cdx-xxl-50 cdx-xl-50 mx-2">
                             <div class="cardf contact-card">
                                 <div class="card-body">
                                     <div class="flex justify-between">
@@ -86,7 +91,7 @@
                                         </div>
                                         <div class="media-body">
                                             <button id="modalBtn{{ $unit->id }}"
-                                                class="px-2 py-1 rounded text-white bg-cyan-300 hover:font-bold hover:bg-cyan-500 ">Inquire
+                                                class="px-2 py-1 rounded text-white bg-cyan-300 hover:font-bold hover:bg-cyan-500 shadow">Inquire
                                                 More</button>
                                         </div>
                                     </div>
@@ -142,7 +147,7 @@
             <div id="simpleModal{{ $unit->id }}" class="modal-overlay">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span class="closeBtn">&#x2715;</span>
+                        <span class="closeBtn" id="closeBtn{{ $unit->id }}">&#x2715;</span>
                         <h2 class="font-bold">Inquire More on {{ $unit->name }} with {{ $unit->bedroom }} Bedrooms &
                             Rent of KSH: {{ $unit->rent }}</h2>
                     </div>
@@ -160,6 +165,10 @@
                         <div class="form-group flex justify-between">
                             {{ Form::label('phone', __('Phone Number'), ['class' => 'form-label font-bold']) }}
                             {{ Form::text('phone', null, ['class' => 'form-control m-1', 'placeholder' => __('Enter your phonenumber')]) }}
+                        </div>
+                        <div class="form-group flex justify-between">
+                            <input type="hidden" value="{{ $unit->id }}" name="unit_id" />
+                            <input type="hidden" value="{{ $unit->property_id }}" name="property_id" />
                         </div>
                         <div class="form-group flex justify-between">
                             {{ Form::submit(__('Inquire'), ['class' => 'font-bold block py-1 px-3 border bg-yellow_bg rounded', 'id' => 'inquire-submit']) }}
@@ -215,7 +224,9 @@
                 // Get open modal button
                 var modalBtn = document.getElementById('modalBtn' + unit.id);
                 // Get close button
-                var closeBtn = document.getElementsByClassName('closeBtn')[0];
+                //var closeBtn = document.getElementsByClassName('closeBtn')[0];
+                var closeBtn = document.getElementById('closeBtn' + unit.id);
+
 
                 // Listen for open click
                 modalBtn.addEventListener('click', openModal);

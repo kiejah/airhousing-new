@@ -93,5 +93,6 @@ return array(
     'Collective\\Html\\' => array($vendorDir . '/laravelcollective/html/src'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
+    'App\\Helpers\\' => array($baseDir . '/app/Helpers'),
     'App\\' => array($baseDir . '/app'),
 );

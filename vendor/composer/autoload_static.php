@@ -179,6 +179,7 @@ class ComposerStaticInit8342c07d9161854d53f44a94c2ace5e8
         ),
         'A' => 
         array (
+            'App\\Helpers\\' => 12,
             'App\\' => 4,
         ),
     );
@@ -535,6 +536,10 @@ class ComposerStaticInit8342c07d9161854d53f44a94c2ace5e8
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
+        'App\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Helpers',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -554,6 +559,7 @@ class ComposerStaticInit8342c07d9161854d53f44a94c2ace5e8
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\InquiriesHelper' => __DIR__ . '/../..' . '/app/Helpers/InquiriesHelper.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
         'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
@@ -594,6 +600,7 @@ class ComposerStaticInit8342c07d9161854d53f44a94c2ace5e8
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\StoreLocationRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreLocationRequest.php',
         'App\\Http\\Requests\\UpdateLocationRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateLocationRequest.php',
+        'App\\Models\\Booking' => __DIR__ . '/../..' . '/app/Models/Booking.php',
         'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
         'App\\Models\\Custom' => __DIR__ . '/../..' . '/app/Models/Custom.php',
         'App\\Models\\Expense' => __DIR__ . '/../..' . '/app/Models/Expense.php',

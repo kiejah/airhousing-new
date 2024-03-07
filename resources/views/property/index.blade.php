@@ -53,6 +53,9 @@
                                     {{ __('Unit') }}</a></li>
                             <li><a href="#"><i data-feather="layout"></i>{{ $property->totalRoom() }}
                                     {{ __('Rooms') }}</a></li>
+                            <li><a href={{ route('property.prop_enquiries', $property->id) }}><i
+                                        data-feather="message-square"></i>{{ $property->totalBookings() }}
+                                    {{ __('Inquiries') }}</a></li>
                         </ul>
                         <p class="text-justify">
                             {{ substr($property->description, 0, 200) }}{{ !empty($property->description) ? '...' : '' }}

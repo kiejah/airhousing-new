@@ -40,6 +40,9 @@ class Property extends Model
     public function totalUnit(){
         return $this->hasMany('App\Models\PropertyUnit','property_id','id')->count();
     }
+    public function totalBookings(){
+        return $this->hasMany('App\Models\Booking','property_id','id')->count();
+    }
     public function totalUnits(){
         return $this->hasMany('App\Models\PropertyUnit','property_id','id');
     }

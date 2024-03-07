@@ -431,7 +431,16 @@ li img{
   cursor:  pointer;
 }
 /* end inquire modal css */
-
+.splide__arrow.splide__arrow--prev {
+  padding: 4px;
+  background: azure;
+  color: blanchedalmond;
+}
+.splide__arrow.splide__arrow--next {
+  padding: 4px;
+  background: azure;
+  color: blanchedalmond;
+}
 
 
 
