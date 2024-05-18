@@ -163,6 +163,13 @@
                                 <span>{{ __('Property') }}</span>
                             </a>
                         </li>
+                        <li
+                            class="menu-item {{ Request::route()->getName() == 'booking.index' || Request::route()->getName() == 'booking.create' ? 'active' : '' }}">
+                            <a href="{{ route('bookings.index') }}">
+                                <div class="icon-item"><i data-feather="briefcase"></i></div>
+                                <span>{{ __('Iquiries') }}</span>
+                            </a>
+                        </li>
                     @endif
                     @if (Gate::check('manage tenant'))
                         <li

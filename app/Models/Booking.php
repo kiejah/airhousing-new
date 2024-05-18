@@ -11,4 +11,7 @@ class Booking extends Model
     public function unit(){
         return $this->belongsTo('App\Models\PropertyUnit','unit_id');
     }
+    public function property(){
+        return $this->belongsTo('App\Models\Property','property_id');
+    }
 }

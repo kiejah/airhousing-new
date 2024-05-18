@@ -1,22 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\NoticeBoardController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\SupportController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TypeController;
-use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TenantController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SupportController;
+use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\MaintainerController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\NoticeBoardController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\MaintenanceRequestController;
 
 /*
@@ -214,6 +215,18 @@ Route::group(
     Route::get('property/{pid}/unit', [PropertyController::class,'getPropertyUnit'])->name('property.unit');
 }
 );
+//-------------------------------Inquiries-------------------------------------------
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+    Route::resource('bookings', BookingController::class);
+}
+);
+
 
 //-------------------------------Tenant-------------------------------------------
 Route::resource('tenant', TenantController::class)->middleware(
